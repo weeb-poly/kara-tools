@@ -1,4 +1,6 @@
-import { allFilesInDir, readAllJsonFiles, TOOLS_DIR } from "./utils/files.mjs";
+#!/usr/bin/env -S node --experimental-modules
+
+import { allFilesInDir, readAllJsonFiles, WORK_DIR } from "./utils/files.mjs";
 
 import { validateFileSchema } from "./services/validator.mjs";
 import { postProcessing } from "./services/processor.mjs";
@@ -6,11 +8,11 @@ import { buildDataMaps } from "./services/generator.mjs";
 
 import { Kara, Tag } from "./classes/index.mjs";
 
-const TAGS_DIR = new URL('../tags/', TOOLS_DIR);
-const KARAS_DIR = new URL('../karaokes/', TOOLS_DIR);
+const TAGS_DIR = new URL('./tags/', WORK_DIR);
+const KARAS_DIR = new URL('./karaokes/', WORK_DIR);
 
-const MEDIA_DIRS = ['../medias/', '../../medias/'].map(x => new URL(x, TOOLS_DIR));
-const LYRICS_DIRS = ['../lyrics/'].map(x => new URL(x, TOOLS_DIR));
+const MEDIA_DIRS = ['./medias/', '../medias/'].map(x => new URL(x, WORK_DIR));
+const LYRICS_DIRS = ['./lyrics/'].map(x => new URL(x, WORK_DIR));
 
 async function readAllTags() {
     const tagFnames = await allFilesInDir(TAGS_DIR);

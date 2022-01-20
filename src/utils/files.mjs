@@ -1,7 +1,8 @@
 import fs from "fs";
-import { fileURLToPath } from "url";
+import process from "process";
+import { fileURLToPath, pathToFileURL } from "url";
 
-export const TOOLS_DIR = new URL('../../', import.meta.url);
+export const WORK_DIR = pathToFileURL(process.cwd() + '/');
 
 const asyncFilter = async (arr, predicate) => Promise.all(arr.map(predicate))
     .then((results) => arr.filter((_v, index) => results[index]));

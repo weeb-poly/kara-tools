@@ -1,11 +1,14 @@
 {
-  "name": "tools",
+  "name": "kara-tools",
   "version": "1.0.0",
   "private": true,
   "description": "Scripts to assist with KM",
   "main": "src/main.mjs",
   "scripts": {
-    "test": "node src/main.mjs"
+    "kara-tools": "node src/main.mjs"
+  },
+  "bin": {
+    "kara-tools": "./src/main.mjs"
   },
   "author": "",
   "license": "ISC",
