@@ -60,7 +60,10 @@
                 "genres",
                 "platforms",
                 "versions",
-                "warnings"
+                "warnings",
+                "collections",
+                "singergroups",
+                "franchises"
             ]
         }
     }

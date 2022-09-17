@@ -30,13 +30,17 @@ export const supportedFiles = {
         'kar',
         'txt',
         'kfn',
-        'lrc'
+        'lrc',
+        'vtt'
     ],
     image: [
         'jpg',
         'jpeg',
         'png',
-        'gif'
+        'gif',
+        'webp',
+        'apng',
+        'jng'
     ]
 };
 
