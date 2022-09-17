@@ -165,6 +165,9 @@ export default class Kara {
     get versions() {
         return this.getTagType('versions');
     }
+    get collections() {
+        return this.getTagType('collections');
+    }
 
     get tags() {
         return {
@@ -181,7 +184,8 @@ export default class Kara {
             origins: this.origins,
             series: this.series,
             platforms: this.platforms,
-            versions: this.versions
+            versions: this.versions,
+            collections: this.collections
         }
     }
 
