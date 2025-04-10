@@ -1,23 +1,24 @@
 {
   "name": "kara-tools",
   "version": "1.0.0",
-  "private": true,
-  "description": "Scripts to assist with KM",
+  "author": "",
   "main": "src/main.mjs",
-  "scripts": {
-    "kara-tools": "node src/main.mjs"
+  "dependencies": {
+    "@sinclair/typebox": "^0.34.33",
+    "ajv": "^8.17.1",
+    "ajv-errors": "^3.0.0",
+    "ajv-formats": "^3.0.1",
+    "execa": "^9.5.2",
+    "ffmpeg-static": "^5.2.0",
+    "semver": "^7.7.1"
   },
   "bin": {
     "kara-tools": "./src/main.mjs"
   },
-  "author": "",
+  "description": "Scripts to assist with KM",
   "license": "ISC",
-  "dependencies": {
-    "ajv": "^8.6.3",
-    "ajv-errors": "^3.0.0",
-    "ajv-formats": "^2.1.1",
-    "execa": "^6.1.0",
-    "ffmpeg-static": "^5.1.0",
-    "semver": "^7.3.7"
+  "private": true,
+  "scripts": {
+    "kara-tools": "node ./src/main.mjs"
   }
 }

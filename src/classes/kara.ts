@@ -1,10 +1,9 @@
-import { ajv } from "../ajv/index.mjs";
-import { getSchema } from "../schemas.mjs";
+import { ajv } from "../ajv/index.js";
 
-const schema = getSchema('karafile.json');
+import { TKaraFile, SKaraFile } from "../schema/karafile.js"
 
 //const validator = ajv.compile(schema);
-const validator = ajv.compile(Object.assign({ "$async": true }, schema));
+const validator = ajv.compile(Object.assign({ "$async": true }, SKaraFile));
 
 export default class Kara {
     error = false;
@@ -12,10 +11,12 @@ export default class Kara {
     karafile = '';
     download_status;
 
-    static schema = schema;
+    static schema = SKaraFile;
     static validator = validator;
 
-    constructor(raw) {
+    raw: TKaraFile;
+
+    constructor(raw: TKaraFile) {
         this.raw = raw;
     }
 
@@ -29,19 +30,6 @@ export default class Kara {
 
     get kid() {
         return this.raw.data.kid;
-    }
-
-    get mediafile() {
-        return this.raw.medias[0].filename;
-    }
-
-    get gain() {
-        return this.raw.medias[0].audiogain;
-    }
-
-    set gain(audiogain) {
-        this.raw.medias[0].audiogain = audiogain;
-        this.isKaraModified = true;
     }
 
     get loudnorm() {
@@ -99,12 +87,12 @@ export default class Kara {
     set modified_at(date) {
         if (date instanceof Date) {
             this.raw.data.modified_at = date.toISOString();
-        } else if (date instanceof String || typeof(date) === 'string') {
+        } else if (typeof date === 'string') {
             this.raw.data.modified_at = date;
         } else {
             throw new TypeError("Invalid type for modified_at");
         }
-        this.isModified = true;
+        this.isKaraModified = true;
     }
 
     get created_at() {
@@ -123,41 +111,41 @@ export default class Kara {
         return (this.raw.data.tags[type] || []).map(t => ({tid: t}));
     }
 
-    get misc() {
-        return this.getTagType('misc');
-    }
-    get songtypes() {
-        return this.getTagType('songtypes');
+    get series() {
+        return this.getTagType('series');
     }
     get singers() {
         return this.getTagType('singers');
     }
-    get songwriters() {
-        return this.getTagType('songwriters');
+    get songtypes() {
+        return this.getTagType('songtypes');
     }
     get creators() {
         return this.getTagType('creators');
     }
-    get groups() {
-        return this.getTagType('groups');
+    get langs() {
+        return this.getTagType('langs');
     }
     get authors() {
         return this.getTagType('authors');
     }
-    get langs() {
-        return this.getTagType('langs');
+    get misc() {
+        return this.getTagType('misc');
+    }
+    get songwriters() {
+        return this.getTagType('songwriters');
+    }
+    get groups() {
+        return this.getTagType('groups');
     }
     get families() {
         return this.getTagType('families');
     }
-    get genres() {
-        return this.getTagType('genres');
-    }
     get origins() {
         return this.getTagType('origins');
     }
-    get series() {
-        return this.getTagType('series');
+    get genres() {
+        return this.getTagType('genres');
     }
     get platforms() {
         return this.getTagType('platforms');
@@ -165,8 +153,17 @@ export default class Kara {
     get versions() {
         return this.getTagType('versions');
     }
+    get warnings() {
+        return this.getTagType('warnings');
+    }
     get collections() {
         return this.getTagType('collections');
+    }
+    get singergroups() {
+        return this.getTagType('singergroups');
+    }
+    get franchises() {
+        return this.getTagType('franchises');
     }
 
     get tags() {
@@ -185,7 +182,9 @@ export default class Kara {
             series: this.series,
             platforms: this.platforms,
             versions: this.versions,
-            collections: this.collections
+            collections: this.collections,
+            singergroups: this.singergroups,
+            franchises: this.franchises,
         }
     }
 

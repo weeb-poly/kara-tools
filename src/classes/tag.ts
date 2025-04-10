@@ -1,20 +1,21 @@
-import { ajv } from "../ajv/index.mjs";
-import { getSchema } from "../schemas.mjs";
+import { ajv } from "../ajv/index.js";
 
-const schema = getSchema('tagfile.json');
+import { TTagFile, STagFile } from "../schema/tagfile.js"
 
 //const validator = ajv.compile(schema);
-const validator = ajv.compile(Object.assign({ "$async": true }, schema));
+const validator = ajv.compile(Object.assign({ "$async": true }, STagFile));
 
 export default class Tag {
     error = false;
     isModified = false;
     tagfile = '';
 
-    static schema = schema;
+    static schema = STagFile;
     static validator = validator;
 
-    constructor(raw) {
+    raw: TTagFile;
+
+    constructor(raw: TTagFile) {
         this.raw = raw;
     }
 
@@ -46,10 +47,6 @@ export default class Tag {
         return this.raw.tag.short;
     }
 
-    get problematic() {
-        return this.raw.tag.problematic;
-    }
-
     get priority() {
         return this.raw.tag.priority;
     }
@@ -60,14 +57,6 @@ export default class Tag {
 
     get i18n() {
         return this.raw.tag.i18n;
-    }
-
-    get karacount() {
-        return this.raw.tag.karacount;
-    }
-
-    get karaType() {
-        return this.raw.tag.karaType;
     }
 
     get repository() {
@@ -88,16 +77,12 @@ export default class Tag {
     set modified_at(date) {
         if (date instanceof Date) {
             this.raw.tag.modified_at = date.toISOString();
-        } else if (date instanceof String || typeof(date) === 'string') {
+        } else if (typeof date === 'string') {
             this.raw.tag.modified_at = date;
         } else {
             throw new TypeError("Invalid type for modified_at");
         }
         this.isModified = true;
-    }
-
-    get count() {
-        return this.raw.tag.count;
     }
 
     get karafile_tag() {

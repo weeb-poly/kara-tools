@@ -1,5 +1,5 @@
 import { resolveFileInDirs, getFileSize } from "../utils/files.mjs";
-import { getMediaInfo } from "../utils/ffmpeg.mjs";
+import { getMediaInfo } from "../utils/ffmpeg.js";
 
 export async function karaPostProcessing(kara, mediaDirs, lyricsDirs, silent = { media: false, lyrics: false }, opt = { strict: true, noMedia: false }) {
     let mediaFile;
@@ -62,7 +62,6 @@ export async function karaPostProcessing(kara, mediaDirs, lyricsDirs, silent = {
             } else {
                 kara.isKaraModified = true;
                 kara.mediasize = mediaSize;
-                kara.gain = mediaInfo.gain;
                 kara.duration = mediaInfo.duration;
                 kara.loudnorm = mediaInfo.loudnorm;
                 console.warn('Updated mediaSize for warning "%s": %i', mediaFile, mediaSize);
